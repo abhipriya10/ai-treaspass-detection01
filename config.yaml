@@ -1,0 +1,31 @@
+camera:
+  source_type: "webcam"     # webcam | rtsp | file
+  index: 0
+  rtsp_url: ""
+  file_path: ""
+  capture_width: 640
+  capture_height: 480
+  target_fps: 60            # requested from the camera driver; actual rate depends on hardware
+
+model:
+  path: "models/yolov8n.onnx"
+  input_size: 640           # must match the imgsz the ONNX was exported with (see scripts/export_model.py)
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  intra_op_threads: 8        # ONNX Runtime CPU threads per inference call
+
+detection:
+  classes_of_interest: ["person", "car", "truck", "bus", "motorcycle"]
+
+alerts:
+  cooldown_seconds: 10
+  sound_file: "assets/alarm.wav"
+  toast_enabled: true
+  snapshot_dir: "snapshots"
+
+database:
+  path: "data/alerts.db"
+
+ui:
+  window_title: "Edge-AI Surveillance & Alerting Pipeline"
+  banner_display_seconds: 4
